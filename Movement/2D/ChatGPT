@@ -1,0 +1,74 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public Rigidbody2D rb;
+    public float speed = 12f;
+
+    void Start()
+    {       
+    }
+
+    void Update()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");          //right, left arrow
+        float vertical = Input.GetAxisRaw("Vertical");              //up, down arrow
+
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+        rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+    }
+}
+
+//===================================================================================//
+
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float jumpForce = 10.0f;
+    public CharacterController characterController;
+
+    void Update()
+    {
+        // Check if the player press the space key
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Make the character jump
+            characterController.Jump(jumpForce);
+        }
+    }
+}
+
+//===================================================================================//
+
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float jumpForce = 10.0f;
+    public CharacterController characterController;
+    public bool jump = true;
+
+    void Update()
+    {
+        // Check if the player press the space key and if the jump variable is true
+        if (Input.GetKeyDown(KeyCode.Space) && jump)
+        {
+            // Make the character jump
+            characterController.Jump(jumpForce);
+
+            // Set the jump variable to false to prevent multiple jumps
+            jump = false;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if the character is colliding with the ground
+        if (collision.collider.tag == "Ground")
+        {
+            // Set the jump variable to true to allow the character to jump again
+            jump = true;
+        }
+    }
+}

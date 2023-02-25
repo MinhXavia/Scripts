@@ -1,0 +1,19 @@
+// https://www.youtube.com/watch?v=9_i6S_rDZuA
+
+using UnityEngine;
+
+public class RotateArm : MonoBehaviour
+{
+    void Update()
+    {
+        // Get mouse position in world space
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            // Brief: Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition)
+
+        // Calculate the angle between the mouse position and the object's position
+        Vector2 direction = new Vector2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x);
+
+        transform.up = direction;
+    }
+}

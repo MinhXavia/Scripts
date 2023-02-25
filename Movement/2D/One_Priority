@@ -1,0 +1,29 @@
+//https://www.youtube.com/watch?v=n4N9VEA2GFo
+
+using UnityEngine;
+
+public class PlayerMovement : MonoBeahviour {
+
+    public float PlayerSpeed = 1f;
+    public float JumpForce = 1f;
+
+    private Rigidbody2D rigidbody2D;
+
+    void Update()
+    {
+        float horizontal = Input.GetAxis("Horizontal");     //right, left arrow
+        transform.position += new Vector3(horizontal, 0, 0) * Time.deltaTime * PlayerSpeed;     // Time.deltaTime: to smoothen movement over the frames
+
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(rigidbody2D.velocity.y) < 0.001f)
+        {
+            rigidbody2D.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+        }
+    
+    }
+
+
+
+
+
+}
+

@@ -1,0 +1,21 @@
+using UnityEngine;
+
+public class RotateArm : MonoBehaviour
+{
+    void Update()
+    {
+        // Get mouse position in world space
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // 'Input.mousePosition' get the mouse position in screen space
+            // 'Camera.main.ScreenToWorldPoint()' convert it to world space
+
+        // Calculate the angle between the mouse position and the object's position
+        float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x);
+
+        // Convert the angle from radians to degrees
+        float rotation = angle * Mathf.Rad2Deg;
+
+        // Set the object's rotation
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
+    }
+}
